@@ -1,0 +1,25 @@
+body {
+    font-family: 'poppins'
+}
+
+#txt-inp {
+    width: 50%;
+    margin: 20px;
+}
+
+#definition {
+    margin: 10px;
+}
+
+#voice {
+    width: 50%;
+}
+
+.voice-msg {
+    margin-top: 5px;
+}
+
+.title {
+    font-weight: bold;
+    margin: 20px;
+}

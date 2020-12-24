@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCSP Spelling Bee</title>
+    <script src='./index.js'></script>
+    <script src='./require.js'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='./index.css'>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script src='./app.js'></script>
+
+</head>
+
+<body>
+
+
+
+    <center>
+        <h1 class='title'>APCSP Spelling Bee</h1>
+        <div id="page-wrapper">
+
+            <button id='test3'>Test</button>
+
+
+            <button class='btn btn-success' id='play'>Play</button>
+            <input class='form-control' id='name-inp' placeholder="Name">
+            <input class='form-control' id='txt-inp' placeholder="Word">
+            <button class='btn btn-primary' id='submit-btn'>Submit</button>
+            <button class='btn btn-primary' id='definition'>Definition</button>
+            <button class='btn btn-primary' id='replay'>Replay Sound</button>
+            <div>
+                <p id='def'></p>
+            </div>
+            <p id='answer'></p>
+            <p id='score'></p>
+            <div id="page-wrapper">
+                <p id="msg"></p>
+                <div class='hidden-stuff'>
+                    <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
+                </div>
+                <div class="option">
+                    <label for="voice">Voice</label>
+                    <select class='form-control' name="voice" id="voice"></select>
+                    <p class='voice-msg'>*The voice
+                        <super>alex</super> is recommended*</p>
+                </div>
+
+                <div class='hidden-stuff'>
+                    <div class="option">
+                        <label for="volume">Volume</label>
+                        <input type="range" min="0" max="1" step="0.1" name="volume" id="volume" value="1">
+                    </div>
+                    <div class="option">
+                        <label for="rate">Rate</label>
+                        <input type="range" min="0.1" max="10" step="0.1" name="rate" id="rate" value="1">
+                    </div>
+                    <div class="option">
+                        <label for="pitch">Pitch</label>
+                        <input type="range" min="0" max="2" step="0.1" name="pitch" id="pitch" value="1">
+                    </div>
+                </div>
+            </div>
+    </center>
+
+    <center>
+        <p>Scoreboard</p>
+        <table id='dataTable' border=1>
+
+
+        </table>
+    </center>
+    <center>
+        <button class='btn btn-danger' id='delete'>RESET</button>
+    </center>
+    <script>
+        var score = 0;
+
+
+        var button = document.getElementById('play');
+
+        var play = document.getElementById('replay');
+
+
+
+        var word = words[Math.floor(Math.random() * (1000 + 1) - 1)];
+
+        function changeWord() {
+            word = words[Math.floor(Math.random() * (1000 + 1) - 1)];
+
+        }
+
+        button.addEventListener('click', function (e) {
+            $('#speech-msg').val(word)
+            speak(speechMsgInput.value);
+        });
+
+        play.addEventListener('click', function (e) {
+            if (speechMsgInput.value.length > 0) {
+                speak(speechMsgInput.value);
+            }
+        });
+
+        submitBtn = document.getElementById('submit-btn');
+
+        setInterval(function () {
+            document.getElementById('score').innerHTML = score;
+        }, 1000);
+
+        submitBtn.addEventListener('click', function (e) {
+
+            if ($('#txt-inp').val().length > 1) {
+                if ($('#txt-inp').val() == word) {
+                    $('#answer').html("Correct")
+                    score += 1;
+                    changeWord()
+                } else {
+                    $('#answer').html("Incorrect")
+                    score = 0;
+                    changeWord()
+                }
+            }
+        });
+
+        // Get the text input element.
+        var speechMsgInput = document.getElementById('speech-msg');
+
+        // Get the voice select element.
+        var voiceSelect = document.getElementById('voice');
+
+        // Get the attribute controls.
+        var volumeInput = document.getElementById('volume');
+        var rateInput = document.getElementById('rate');
+        var pitchInput = document.getElementById('pitch');
+
+        definition = document.getElementById('definition');
+
+
+
+
+
+        definition.addEventListener('click', function (e) {
+
+            const settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://wordsapiv1.p.rapidapi.com/words/" + word,
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-key": "36bfee0cc8msh9ccfba820cdea65p1a2f28jsn257e52dcbdca",
+                    "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
+                }
+            }
+
+
+            $.ajax(settings).done(function (response) {
+                def = response['results'][0]['definition'];
+
+                $('#def').text(def)
+
+            });
+        })
+
+
+
+        // Fetch the list of voices and populate the voice options.
+        function loadVoices() {
+            // Fetch the available voices.
+            var voices = speechSynthesis.getVoices();
+
+            // Loop through each of the voices.
+            voices.forEach(function (voice, i) {
+                // Create a new option element.
+                var option = document.createElement('option');
+
+                // Set the options value and text.
+                option.value = voice.name;
+                option.innerHTML = voice.name;
+
+                // Add the option to the voice selector.
+                voiceSelect.appendChild(option);
+            });
+        }
+
+        // Execute loadVoices.
+        loadVoices();
+
+        // Chrome loads voices asynchronously.
+        window.speechSynthesis.onvoiceschanged = function (e) {
+            loadVoices();
+        };
+
+
+        // Create a new utterance for the specified text and add it to
+        // the queue.
+        function speak(text) {
+            // Create a new instance of SpeechSynthesisUtterance.
+            var msg = new SpeechSynthesisUtterance();
+
+            // Set the text.
+            msg.text = text;
+
+            // Set the attributes.
+            msg.volume = parseFloat(volumeInput.value);
+            msg.rate = parseFloat(rateInput.value);
+            msg.pitch = parseFloat(pitchInput.value);
+
+            // If a voice has been selected, find the voice and set the
+            // utterance instance's voice attribute.
+            if (voiceSelect.value) {
+                msg.voice = speechSynthesis.getVoices().filter(function (voice) {
+                    return voice.name == voiceSelect.value;
+                })[0];
+            }
+
+            // Queue this utterance.
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+
+    <style>
+        .hidden-stuff {
+            visibility: hidden;
+        }
+    </style>
+
+    <script>
+        const projectID = 'apcsp-65a13'
+        const key = 'AIzaSyCgmP5JpWhlUv_RjvPnKMlhBt2lVhUJwJw'
+        const doc = 'players/ZJyrX3dJ6FQIibH91UhD'
+        const url =
+            `https://firestore.googleapis.com/v1beta1/projects/${projectID}/databases/(default)/documents/${doc}?key=${key}`
+        // Use fetch to request the API information
+
+
+        //document.getElementById('test2').addEventListener('click', function(e) {
+
+        //   db.collection("players").add({
+        //name: document.getElementById('name-inp').value,
+        //            score: 3
+        //       })
+        //       .catch(function(error) {
+        //           console.error("Error adding document: ", error);
+        //      });
+
+        //  });
+
+        document.getElementById('test3').addEventListener('click', function (e) {
+
+        });
+
+        var players = [];
+
+        $('document').ready(function () {
+
+            db.collection("players").get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    // doc.data() is never undefined for query doc snapshots
+                    players.push({
+                        name: doc.data()['name'],
+                        score: doc.data()['score'],
+
+                    })
+                    var row = "";
+                    for (var i = 0; i < players.length; i++) {
+
+                        console.log(players[i])
+
+                        lastName = players[i]['name']
+                        lastScore = players[i]['score']
+
+                        row += "<td>" + lastName + "</td>" +
+                            "<td>" + lastScore + "</td>"
+
+                    }
+
+
+                    var $tr = $('<tr>').append(row);
+                    $("#dataTable").append($tr);
+
+                });
+            });
+
+        });
+
+        document.getElementById('delete').addEventListener('click', function (e) {
+
+            const ref = db.collection('players')
+            ref.onSnapshot((snapshot) => {
+                snapshot.docs.forEach((doc) => {
+                    ref.doc(doc.id).delete()
+                })
+            })
+        });
+
+
+
+        //append data to list
+
+
+
+        //append data to table
+    </script>
+
+</body>
+
+
+</html>
