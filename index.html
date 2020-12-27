@@ -24,8 +24,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
-    <script src='./app.js'></script>
-    <script src='./index.js'></script>
+
 
 </head>
 
@@ -82,9 +81,9 @@
     <center>
         <p>Scoreboard</p>
         <table class='table table-bordered' id='dataTable' style='width:30%'>
- <tbody>
-    <tr></tr>
-  </tbody>
+            <tbody>
+                <tr></tr>
+            </tbody>
 
         </table>
     </center>
@@ -99,222 +98,15 @@
         </div>
     </div>
     <script>
-        var word;
-        
-         function changeWord() {
 
-            var isCorrectLength = true;
-
-                while (isCorrectLength) {
-                    word = words[Math.floor(Math.random() * words.length)]
-                    if (word.length == wordLength) {
-                        isCorrectLength = false
-                        console.log(word)
-                    }
-                }
-
-            }
-
-
-        $('document').ready(function () {
-            changeWord();
-            
-           
-            $("#voice").val("Google US English");
-            $('.blur-bg').fadeIn()
-        })
-
-        function fadeOut() {
-            $('.name-div').fadeOut()
-        }
-
-
-        var score = 0;
-
-        var wordLength = 4;
-
-
-        var button = document.getElementById('play');
-
-        var play = document.getElementById('replay');
-
-
-
-        button.addEventListener('click', function (e) {
-            $('#speech-msg').val(word)
-            speak(speechMsgInput.value);
-        });
-
-        play.addEventListener('click', function (e) {
-            if (speechMsgInput.value.length > 0) {
-                speak(speechMsgInput.value);
-            }
-        });
-
-        submitBtn = document.getElementById('submit-btn');
-
-        setInterval(function () {
-            document.getElementById('score').innerHTML = score;
-        }, 1000);
-
-        submitBtn.addEventListener('click', function (e) {
-
-            if ($('#txt-inp').val().length > 1) {
-                if ($('#txt-inp').val() == word) {
-                    $('#answer').html("Correct")
-                    score += 1;
-                    $('#txt-inp').val("")
-                    changeWord()
-                    if(wordLength == 14){
-                        wordLength = 14;
-                    }
-                    else{
-                        wordLength += 1;
-                    }
-                    
-                } else {
-                    $('#answer').html("Incorrect")
-                    score = 0;
-                    wordLength = 3;
-                    changeWord()
-                    addData()
-                }
-            }
-        });
-
-        // Get the text input element.
-        var speechMsgInput = document.getElementById('speech-msg');
-
-        // Get the voice select element.
-        var voiceSelect = document.getElementById('voice');
-
-        // Get the attribute controls.
-        var volumeInput = document.getElementById('volume');
-        var rateInput = document.getElementById('rate');
-        var pitchInput = document.getElementById('pitch');
-
-        definition = document.getElementById('definition');
-
-
-
-
-
-
-
-
-
-        // Fetch the list of voices and populate the voice options.
-        function loadVoices() {
-            // Fetch the available voices.
-            var voices = speechSynthesis.getVoices();
-
-            // Loop through each of the voices.
-            voices.forEach(function (voice, i) {
-                // Create a new option element.
-                var option = document.createElement('option');
-
-                // Set the options value and text.
-                option.value = voice.name;
-                option.innerHTML = voice.name;
-
-                // Add the option to the voice selector.
-                voiceSelect.appendChild(option);
-            });
-        }
-
-        // Execute loadVoices.
-        loadVoices();
-
-        // Chrome loads voices asynchronously.
-        window.speechSynthesis.onvoiceschanged = function (e) {
-            loadVoices();
-        };
-
-
-        // Create a new utterance for the specified text and add it to
-        // the queue.
-        function speak(text) {
-            // Create a new instance of SpeechSynthesisUtterance.
-            var msg = new SpeechSynthesisUtterance();
-
-            // Set the text.
-            msg.text = text;
-
-            // Set the attributes.
-            msg.volume = parseFloat(volumeInput.value);
-            msg.rate = parseFloat(rateInput.value);
-            msg.pitch = parseFloat(pitchInput.value);
-
-            // If a voice has been selected, find the voice and set the
-            // utterance instance's voice attribute.
-            if (voiceSelect.value) {
-                msg.voice = speechSynthesis.getVoices().filter(function (voice) {
-                    return voice.name == voiceSelect.value;
-                })[0];
-            }
-
-            // Queue this utterance.
-            window.speechSynthesis.speak(msg);
-        }
-
-
-        const projectID = 'apcsp-65a13'
-        const key = 'AIzaSyCgmP5JpWhlUv_RjvPnKMlhBt2lVhUJwJw'
-        const doc = 'players/ZJyrX3dJ6FQIibH91UhD'
-        const url =
-            `https://firestore.googleapis.com/v1beta1/projects/${projectID}/databases/(default)/documents/${doc}?key=${key}`
-        // Use fetch to request the API information
-
-        function addData(){
-             db.collection("players").add({
-                    name: document.getElementById('name-inp').value,
-                    score: $('#score').html()
-                })
-                .catch(function (error) {
-                    console.error("Error adding document: ", error);
-                });
-        }
-
-        var players = [];
-
-        $('document').ready(function () {
-
-            db.collection("players").get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (e) {
-                    // doc.data() is never undefined for query doc snapshots
-                    players.push({
-                        name: e.data()['name'],
-                        score: e.data()['score'],
-
-                    })
-                
-                   //TODO: Get data from firestore and append data to datatable
-
-                        //gets individual data from database
-                        lastName = players[i]['name']
-                        lastScore = players[i]['score']
-
-                        console.log(players)
-
-                        //appends data to new row in table
-                        //$('#dataTable > tbody').append('<tr><td>' + lastName + '</td><td>' + lastScore + '</td></tr>');
-                        
-                    }
-                    
-
-                });
-            });
-        });
-
-        document.getElementById('delete').addEventListener('click', function (e) {
-            const ref = db.collection('players')
-            ref.onSnapshot((snapshot) => {
-                snapshot.docs.forEach((doc) => {
-                    ref.doc(doc.id).delete()
-                })
-            })
-        });
     </script>
+    <script src='./scripts/Vars.js'></script>
+    <script src='./scripts/app.js'></script>
+    <script src='./scripts/AddData.js'></script>
+    <script src='./scripts/ChangeWord.js'></script>
+    <script src='./scripts/DeleteData.js'></script>
+    <script src='./scripts/PopulateData.js'></script>
+    <script src='./scripts/Speak.js'></script>
 </body>
 
 </html>
