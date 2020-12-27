@@ -23,3 +23,76 @@ body {
     font-weight: bold;
     margin: 20px;
 }
+
+.name-div{
+    height: 200px;
+    width: 400px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+    padding: 20px;
+}
+
+.blur-bg{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+
+}
+
+.name-title{
+    font-size: 20px;
+}
+
+#sbmt-btn{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #59c5ff;
+    border: 0;
+}
+
+#play{
+    background-color: #3bff6c;
+    border: 0;
+}
+
+#submit-btn,
+#definition,
+#replay {
+    background-color: #59c5ff;
+    border: 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+#name-inp{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+ .hidden-stuff {
+     visibility: hidden;
+ }

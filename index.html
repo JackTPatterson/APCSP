@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APCSP Spelling Bee</title>
-    <script src='./index.js'></script>
-    <script src='./require.js'></script>
+    <script src='./words.js'></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -23,10 +22,10 @@
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
 
-    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
     <script src='./app.js'></script>
+    <script src='./index.js'></script>
 
 </head>
 
@@ -38,11 +37,11 @@
         <h1 class='title'>APCSP Spelling Bee</h1>
         <div id="page-wrapper">
 
-            <button id='test3'>Test</button>
+            <button id='test2'>Test</button>
 
 
             <button class='btn btn-success' id='play'>Play</button>
-            <input class='form-control' id='name-inp' placeholder="Name">
+
             <input class='form-control' id='txt-inp' placeholder="Word">
             <button class='btn btn-primary' id='submit-btn'>Submit</button>
             <button class='btn btn-primary' id='definition'>Definition</button>
@@ -61,7 +60,6 @@
                     <label for="voice">Voice</label>
                     <select class='form-control' name="voice" id="voice"></select>
                     <p class='voice-msg'>*The voice
-                        <super>alex</super> is recommended*</p>
                 </div>
 
                 <div class='hidden-stuff'>
@@ -83,16 +81,57 @@
 
     <center>
         <p>Scoreboard</p>
-        <table id='dataTable' border=1>
-
+        <table class='table table-bordered' id='dataTable' style='width:30%'>
+ <tbody>
+    <tr></tr>
+  </tbody>
 
         </table>
     </center>
     <center>
         <button class='btn btn-danger' id='delete'>RESET</button>
     </center>
+    <div class='blur-bg'>
+        <div class='name-div'>
+            <h1 class='name-title'>Enter Your Name</h1>
+            <input class='form-control' id='name-inp' placeholder="Name">
+            <button id='sbmt-btn' class='btn btn-primary' onclick=fadeOut()>Submit</button>
+        </div>
+    </div>
     <script>
+        var word;
+        
+         function changeWord() {
+
+            var isCorrectLength = true;
+
+                while (isCorrectLength) {
+                    word = words[Math.floor(Math.random() * words.length)]
+                    if (word.length == wordLength) {
+                        isCorrectLength = false
+                        console.log(word)
+                    }
+                }
+
+            }
+
+
+        $('document').ready(function () {
+            changeWord();
+            
+           
+            $("#voice").val("Google US English");
+            $('.blur-bg').fadeIn()
+        })
+
+        function fadeOut() {
+            $('.name-div').fadeOut()
+        }
+
+
         var score = 0;
+
+        var wordLength = 4;
 
 
         var button = document.getElementById('play');
@@ -100,13 +139,6 @@
         var play = document.getElementById('replay');
 
 
-
-        var word = words[Math.floor(Math.random() * (1000 + 1) - 1)];
-
-        function changeWord() {
-            word = words[Math.floor(Math.random() * (1000 + 1) - 1)];
-
-        }
 
         button.addEventListener('click', function (e) {
             $('#speech-msg').val(word)
@@ -131,11 +163,21 @@
                 if ($('#txt-inp').val() == word) {
                     $('#answer').html("Correct")
                     score += 1;
+                    $('#txt-inp').val("")
                     changeWord()
+                    if(wordLength == 14){
+                        wordLength = 14;
+                    }
+                    else{
+                        wordLength += 1;
+                    }
+                    
                 } else {
                     $('#answer').html("Incorrect")
                     score = 0;
+                    wordLength = 3;
                     changeWord()
+                    addData()
                 }
             }
         });
@@ -157,27 +199,7 @@
 
 
 
-        definition.addEventListener('click', function (e) {
 
-            const settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "https://wordsapiv1.p.rapidapi.com/words/" + word,
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-key": "36bfee0cc8msh9ccfba820cdea65p1a2f28jsn257e52dcbdca",
-                    "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
-                }
-            }
-
-
-            $.ajax(settings).done(function (response) {
-                def = response['results'][0]['definition'];
-
-                $('#def').text(def)
-
-            });
-        })
 
 
 
@@ -234,15 +256,8 @@
             // Queue this utterance.
             window.speechSynthesis.speak(msg);
         }
-    </script>
 
-    <style>
-        .hidden-stuff {
-            visibility: hidden;
-        }
-    </style>
 
-    <script>
         const projectID = 'apcsp-65a13'
         const key = 'AIzaSyCgmP5JpWhlUv_RjvPnKMlhBt2lVhUJwJw'
         const doc = 'players/ZJyrX3dJ6FQIibH91UhD'
@@ -250,59 +265,48 @@
             `https://firestore.googleapis.com/v1beta1/projects/${projectID}/databases/(default)/documents/${doc}?key=${key}`
         // Use fetch to request the API information
 
-
-        //document.getElementById('test2').addEventListener('click', function(e) {
-
-        //   db.collection("players").add({
-        //name: document.getElementById('name-inp').value,
-        //            score: 3
-        //       })
-        //       .catch(function(error) {
-        //           console.error("Error adding document: ", error);
-        //      });
-
-        //  });
-
-        document.getElementById('test3').addEventListener('click', function (e) {
-
-        });
+        function addData(){
+             db.collection("players").add({
+                    name: document.getElementById('name-inp').value,
+                    score: $('#score').html()
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
 
         var players = [];
 
         $('document').ready(function () {
 
             db.collection("players").get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+                querySnapshot.forEach(function (e) {
                     // doc.data() is never undefined for query doc snapshots
                     players.push({
-                        name: doc.data()['name'],
-                        score: doc.data()['score'],
+                        name: e.data()['name'],
+                        score: e.data()['score'],
 
                     })
-                    var row = "";
-                    for (var i = 0; i < players.length; i++) {
+                
+                   //TODO: Get data from firestore and append data to datatable
 
-                        console.log(players[i])
-
+                        //gets individual data from database
                         lastName = players[i]['name']
                         lastScore = players[i]['score']
 
-                        row += "<td>" + lastName + "</td>" +
-                            "<td>" + lastScore + "</td>"
+                        console.log(players)
 
+                        //appends data to new row in table
+                        //$('#dataTable > tbody').append('<tr><td>' + lastName + '</td><td>' + lastScore + '</td></tr>');
+                        
                     }
-
-
-                    var $tr = $('<tr>').append(row);
-                    $("#dataTable").append($tr);
+                    
 
                 });
             });
-
         });
 
         document.getElementById('delete').addEventListener('click', function (e) {
-
             const ref = db.collection('players')
             ref.onSnapshot((snapshot) => {
                 snapshot.docs.forEach((doc) => {
@@ -310,17 +314,7 @@
                 })
             })
         });
-
-
-
-        //append data to list
-
-
-
-        //append data to table
     </script>
-
 </body>
-
 
 </html>
