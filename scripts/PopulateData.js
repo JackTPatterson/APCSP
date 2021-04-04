@@ -12,7 +12,7 @@ $('document').ready(function () { //*starts function on start
                 })
 
                 for (i = 0; i <= players.length - 1; i++) { //* this loop is in charge of adding the list data to the HTML table
-                    $('#dataTable > tbody:last').after('<tr><td>' + players[i]['name'] + '</td><td>' +
+                    $('#dataTable > tbody:last').after('<tr style="color: white;"><td>' + players[i]['name'] + '</td><td>' +
                         players[i]['score'] + '</td></tr>');
                 };
             });

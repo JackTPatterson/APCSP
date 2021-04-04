@@ -1,10 +1,36 @@
 body {
-    font-family: 'poppins'
+    font-family: 'poppins';
+    background-color: #363640;
+}
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #26262f;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+table td, th {
+  padding: 20px;
+  padding-top: 0px;
+  
+}
+
+
+table thead tr {
+  height: 80px;
+  background: #26262f;
 }
 
 #txt-inp {
-    width: 50%;
-    margin: 20px;
+    width: 350px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 #definition {
@@ -21,7 +47,8 @@ body {
 
 .title {
     font-weight: bold;
-    margin: 20px;
+    margin-top: 20px;
+    color: white;
 }
 
 .name-div{
@@ -62,19 +89,25 @@ body {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    background-color: #59c5ff;
+    background-color: black;
     border: 0;
 }
 
 #play{
-    background-color: #3bff6c;
+    background-color: black;
+    width: 200px;
+    border-radius: 10px;
     border: 0;
+    color: white;
+    float: left;
+   
 }
 
 #submit-btn,
 #definition,
 #replay {
-    background-color: #59c5ff;
+    
+    background-color: black;
     border: 0;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -84,15 +117,69 @@ body {
 }
 
 #name-inp{
+  
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    margin-top: 20px;
     font-weight: bold;
+    width: 350px;
 }
 
  .hidden-stuff {
      visibility: hidden;
  }
+
+.enter-name{
+    color: white;
+    
+}
+
+.container-main{
+    margin-left: 20px;
+}
+
+.column1 {
+  float: left;
+  width: 53.33%;
+  margin-left: 40px;
+}
+
+.main-container{
+    margin-left: 30px;
+}
+
+#delete{
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+}
+
+
+
+
+
+
+
+.table100-head {
+
+  font-size: 18px;
+  color: grey;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+
+.btn-grp{
+     bottom: 20px;
+     position: absolute;
+     bottom: 20px;
+     float: left;
+}
+
+#score{
+    float: right;
+    margin-left: 20px;
+    margin-top: 7px;
+}

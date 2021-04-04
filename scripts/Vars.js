@@ -4,7 +4,7 @@ var word;
 
 var score = 0;
 
-var wordLength = 4;
+var wordLength = 4; //inital word length
 
 
 var button = document.getElementById('play');

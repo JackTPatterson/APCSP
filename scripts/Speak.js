@@ -23,12 +23,13 @@ $('document').ready(function () {
         submitBtn = document.getElementById('submit-btn');
 
         setInterval(function () {
-            document.getElementById('score').innerHTML = score;
+            document.getElementById('score').innerHTML = "Score: " + score;
         }, 1000);
 
         submitBtn.addEventListener('click', function (e) {
 
             if ($('#txt-inp').val().length > 1) {
+                console.log("Test");
                 if ($('#txt-inp').val() == word) {
                     $('#answer').html("Correct")
                     score += 1;
@@ -38,14 +39,19 @@ $('document').ready(function () {
                         wordLength = 14;
                     } else {
                         wordLength += 1;
+                        
                     }
 
+
                 } else {
+                    
                     $('#answer').html("Incorrect")
                     score = 0;
                     wordLength = 3;
                     changeWord()
-                    addData()
+                    if(score == 0){
+                        addData();
+                    }
                 }
             }
         });

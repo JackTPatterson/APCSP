@@ -30,83 +30,97 @@
 
 <body>
 
-
-
-    <center>
-        <h1 class='title'>APCSP Spelling Bee</h1>
-        <div id="page-wrapper">
-
-            <button id='test2'>Test</button>
-
-
-            <button class='btn btn-success' id='play'>Play</button>
-
-            <input class='form-control' id='txt-inp' placeholder="Word">
-            <button class='btn btn-primary' id='submit-btn'>Submit</button>
-            <button class='btn btn-primary' id='definition'>Definition</button>
-            <button class='btn btn-primary' id='replay'>Replay Sound</button>
-            <div>
-                <p id='def'></p>
-            </div>
-            <p id='answer'></p>
-            <p id='score'></p>
+    <div class='main-container'>
+    
+   <div style='position: absolute; left: 40px;'>
+            <h1 class='title'>Play</h1>
+            <br>
+            <br>
             <div id="page-wrapper">
-                <p id="msg"></p>
-                <div class='hidden-stuff'>
-                    <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
-                </div>
-                <div class="option">
-                    <label for="voice">Voice</label>
-                    <select class='form-control' name="voice" id="voice"></select>
-                    <p class='voice-msg'>*The voice
-                </div>
 
-                <div class='hidden-stuff'>
-                    <div class="option">
-                        <label for="volume">Volume</label>
-                        <input type="range" min="0" max="1" step="0.1" name="volume" id="volume" value="1">
+                <p class='enter-name'>Enter your name</p>
+                <input class='form-control' id='name-inp' placeholder="Name">
+
+                <!-- <button id='test2'>Test</button> -->
+
+
+
+
+                <p class='enter-name' style='margin-top: 100px;'>Enter your word you hear</p>
+                <input class='form-control' id='txt-inp' placeholder="Word">
+               
+                <button class='btn btn-primary' id='submit-btn'>Submit</button>
+                <button class='btn btn-primary' id='definition'>Definition</button>
+                <button class='btn btn-primary' id='replay'>Replay Sound</button>
+                <div>
+                    <p id='def'></p>
+                </div>
+                <p id='answer' style='color: white'></p>
+                
+                <div id="page-wrapper">
+                    <p id="msg"></p>
+                    <div class='hidden-stuff'>
+                        <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
                     </div>
-                    <div class="option">
-                        <label for="rate">Rate</label>
-                        <input type="range" min="0.1" max="10" step="0.1" name="rate" id="rate" value="1">
-                    </div>
-                    <div class="option">
-                        <label for="pitch">Pitch</label>
-                        <input type="range" min="0" max="2" step="0.1" name="pitch" id="pitch" value="1">
+
+
+                    <div class='hidden-stuff'>
+                        <div class="option">
+                            <label for="voice">Voice</label>
+                            <select class='form-control' name="voice" id="voice"></select>
+                            <p class='voice-msg'>*The voice
+                        </div>
+                        <div class="option">
+                            <label for="volume">Volume</label>
+                            <input type="range" min="0" max="1" step="0.1" name="volume" id="volume" value="1">
+                        </div>
+                        <div class="option">
+                            <label for="rate">Rate</label>
+                            <input type="range" min="0.1" max="10" step="0.1" name="rate" id="rate" value="1">
+                        </div>
+                        <div class="option">
+                            <label for="pitch">Pitch</label>
+                            <input type="range" min="0" max="2" step="0.1" name="pitch" id="pitch" value="1">
+                        </div>
                     </div>
                 </div>
+                
             </div>
-    </center>
-
-    <center>
-        <p>Scoreboard</p>
-        <table class='table table-bordered' id='dataTable' style='width:30%'>
-            <tbody>
-                <tr></tr>
-            </tbody>
-
-        </table>
-    </center>
-    <center>
-        <button class='btn btn-danger' id='delete'>RESET</button>
-    </center>
-    <div class='blur-bg'>
-        <div class='name-div'>
-            <h1 class='name-title'>Enter Your Name</h1>
-            <input class='form-control' id='name-inp' placeholder="Name">
-            <button id='sbmt-btn' class='btn btn-primary' onclick=fadeOut()>Submit</button>
-        </div>
+   </div>
+   <div class='btn-grp'>
+ <button class='btn' id='play'>Play</button>
+ <p id='score' style='color: white'></p>
+</div>
+    <div style='padding-top:5px; position:absolute; right: 40px;'>
+        <h1 class='title'>Scoreboard</h1>
+        <br>
+        <br>
+        <br>
+        <div class="table100">
+					<table id='dataTable'>
+						<thead>
+							<tr class="table100-head">
+								<th>Name</th>
+								<th>Score ID</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
     </div>
-    <script>
-
-    </script>
-    <script src='./scripts/Vars.js'></script>
-    <script src='./scripts/app.js'></script>
+    </div>
+</div>
+    <button class='btn btn-danger' id='delete'>RESET</button>
+        
     <script src='./scripts/AddData.js'></script>
-    <script src='./scripts/ChangeWord.js'></script>
-    <script src='./scripts/DeleteData.js'></script>
-    <script src='./scripts/PopulateData.js'></script>
-    <script src='./scripts/Speak.js'></script>
+        <script src='./scripts/Vars.js'></script>
+        <script src='./scripts/app.js'></script>
+        <script src='./scripts/1.js'></script>
+        <script src='./scripts/ChangeWord.js'></script>
+        <script src='./scripts/DeleteData.js'></script>
+        <script src='./scripts/PopulateData.js'></script>
+        <script src='./scripts/Speak.js'></script>
 </body>
 
 </html>
