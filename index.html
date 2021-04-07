@@ -11,15 +11,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' href='./index.css'>
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
@@ -41,7 +36,7 @@
                 <p class='enter-name'>Enter your name</p>
                 <input class='form-control' id='name-inp' placeholder="Name">
 
-                <!-- <button id='test2'>Test</button> -->
+            
 
 
 
@@ -50,15 +45,17 @@
                 <input class='form-control' id='txt-inp' placeholder="Word">
                
                 <button class='btn btn-primary' id='submit-btn'>Submit</button>
-                <button class='btn btn-primary' id='definition'>Definition</button>
+                <button class='btn btn-primary' id='definition' onclick='getWordData()'>Definition</button>
+                <button class='btn btn-primary' id='example' onclick='getExample()'>Example</button>
+
                 <button class='btn btn-primary' id='replay'>Replay Sound</button>
-                <div>
-                    <p id='def'></p>
-                </div>
+              
                 <p id='answer' style='color: white'></p>
                 
                 <div id="page-wrapper">
                     <p id="msg"></p>
+                    <p id="define"></p>
+                    <p id="synonym"></p>
                     <div class='hidden-stuff'>
                         <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
                     </div>
@@ -89,7 +86,7 @@
    </div>
    <div class='btn-grp'>
  <button class='btn' id='play'>Play</button>
- <p id='score' style='color: white'></p>
+ <p id='score' style='color: white'>Score: 0</p>
 </div>
     <div style='padding-top:5px; position:absolute; right: 40px;'>
         <h1 class='title'>Scoreboard</h1>
@@ -112,8 +109,26 @@
     </div>
 </div>
     <button class='btn btn-danger' id='delete'>RESET</button>
+    <button class='btn btn-light' id='how-to' onclick='toggle()'>How To Play</button>
+
+
+    <div class='popup'>
+       <center> <h1 style='font-size: 20px; font-weight: bold;'>How to play</h1></center>
+       <br>
+       <ul>
+           <l1>1. Enter your name</l1><br><br>
+           
+           <l1>2. Press play to hear the word you are given</l1><br><br>
+           <l1>3. Type the word you hear into the word field and press submit</l1><br><br>
+           <l1>4. If you spell the word correct you gain a point</l1><br><br>
+           <l1>5. If you spell the word wrong you restart and you score is entered into the scoreboard</l1>
+
+       </ul>
+    </div>
+
         
-    <script src='./scripts/AddData.js'></script>
+        <script src='./scripts/AddData.js'></script>
+        <script src='./scripts/ToggleHelp.js'></script>
         <script src='./scripts/Vars.js'></script>
         <script src='./scripts/app.js'></script>
         <script src='./scripts/1.js'></script>
@@ -121,6 +136,10 @@
         <script src='./scripts/DeleteData.js'></script>
         <script src='./scripts/PopulateData.js'></script>
         <script src='./scripts/Speak.js'></script>
+        <script src='./scripts/GetWordData.js'></script>
+
+    
+
 </body>
 
 </html>

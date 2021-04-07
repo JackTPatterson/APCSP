@@ -10,6 +10,7 @@ function changeWord() {
             isCorrectLength = false
             console.log(word)
         }
+        
     }
 
 }

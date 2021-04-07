@@ -1,6 +1,6 @@
 //* -- This file holds all key variables needed throughout the website
 
-var word;
+var wor;
 
 var score = 0;
 
@@ -8,6 +8,8 @@ var wordLength = 4; //inital word length
 
 
 var button = document.getElementById('play');
+
+var define = document.getElementById('definition');
 
 var play = document.getElementById('replay');
 
@@ -34,3 +36,6 @@ const url =
 
 
 var players = [];
+
+var example;
+

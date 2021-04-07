@@ -28,14 +28,19 @@ table thead tr {
 }
 
 #txt-inp {
-    width: 350px;
+    width: 450px;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
-#definition {
-    margin: 10px;
+
+
+#define,
+#synonym {
+    color: white;
 }
+
+
 
 #voice {
     width: 50%;
@@ -105,6 +110,7 @@ table thead tr {
 
 #submit-btn,
 #definition,
+#example,
 #replay {
     
     background-color: black;
@@ -114,6 +120,11 @@ table thead tr {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    margin: 5px;
+}
+
+#submit-btn{
+    margin-left: 0px;
 }
 
 #name-inp{
@@ -124,7 +135,7 @@ table thead tr {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     font-weight: bold;
-    width: 350px;
+    width: 450px;
 }
 
  .hidden-stuff {
@@ -152,8 +163,14 @@ table thead tr {
 
 #delete{
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     right: 40px;
+}
+
+#how-to {
+    position: absolute;
+    bottom: 40px;
+    right: 120px;
 }
 
 
@@ -182,4 +199,15 @@ table thead tr {
     float: right;
     margin-left: 20px;
     margin-top: 7px;
+}
+
+.popup{
+    width: 600px;
+    height:400px;
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
 }

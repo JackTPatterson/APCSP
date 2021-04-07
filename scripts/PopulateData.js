@@ -11,9 +11,10 @@ $('document').ready(function () { //*starts function on start
                     players.sort((a, b) => parseFloat(a.score) - parseFloat(b.score)); //* this is responsible for sorting the data by high score to low score
                 })
 
-                for (i = 0; i <= players.length - 1; i++) { //* this loop is in charge of adding the list data to the HTML table
-                    $('#dataTable > tbody:last').after('<tr style="color: white;"><td>' + players[i]['name'] + '</td><td>' +
-                        players[i]['score'] + '</td></tr>');
+               for (i = 0; i <= players.length - 1; i++){
+                    $('#dataTable > tbody:last').after('<tr style="color: white;"><td>' 
+                    + players[i]['name'] + '</td><td>' 
+                    + players[i]['score'] + '</td></tr>');
                 };
             });
         });

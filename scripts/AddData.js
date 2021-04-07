@@ -9,3 +9,4 @@ function addData() {
             console.error("Error adding document: ", error); //* Error reporting
         });
 }
+
